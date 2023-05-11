@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/login/login.svg'
 import { FaFacebookSquare, FaGoogle, FaLinkedinIn } from "react-icons/fa";
+import { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
+import { getAuth, updateProfile } from 'firebase/auth';
+const auth=getAuth();
 
 const Register = () => {
+    const {createUser}=useContext(AuthContext);
     const handleRegister=(event)=>{
         event.preventDefault(); 
         const form=event.target; 
@@ -10,6 +16,27 @@ const Register = () => {
         const email=form.email.value;
         const password=form.password.value;
         console.log(name,email,password)
+        createUser(email,password)
+        .then(res=>{
+            const newUser=res.user; 
+            console.log(newUser)
+            Swal.fire({
+                position: 'text-center',
+                icon: 'success',
+                title: 'You have successfully registered',
+                showConfirmButton: false,
+                timer: 1000
+              })
+            updateProfile(auth.currentUser, {
+                displayName: name
+              }).then(() => {
+                  form.reset()
+                
+            }).catch((error) => {
+                console.log(error.message)
+              })
+        })
+        .catch(error=>console.log(error.message))
     }
     return (
         <div className="hero min-h-screen bg-base-200">
