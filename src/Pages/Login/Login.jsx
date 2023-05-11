@@ -3,9 +3,10 @@ import logo from '../../assets/images/login/login.svg'
 import { FaFacebookSquare, FaGoogle, FaLinkedinIn } from "react-icons/fa";
 import { AuthContext } from '../../Provider/AuthProvider';
 import { useContext } from 'react';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const {user}=useContext(AuthContext)
+    const {user,signIn}=useContext(AuthContext)
     console.log(user)
 
     const handleLogin = (event) => {
@@ -14,6 +15,20 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password)
+        signIn(email,password)
+        .then(res=>{
+            const loggedIn=res.user; 
+            console.log(loggedIn); 
+            Swal.fire({
+                position: 'text-center',
+                icon: 'success',
+                title: 'Login Successful',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              form.reset()
+        })
+        .catch(error=>console.log(error.message))
     }
 
     return (
