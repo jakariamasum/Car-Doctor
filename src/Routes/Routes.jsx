@@ -6,6 +6,8 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
+import Checkout from "../Pages/Checkout/Checkout";
 
   const router = createBrowserRouter([
     {
@@ -24,6 +26,16 @@ import Register from "../Pages/Register/Register";
         {
           path: '/register',
           element: <Register></Register>
+        },
+        {
+          path: '/service/:id', 
+          element: <ServiceDetails></ServiceDetails>,
+          loader: ({params})=>fetch(`http://localhost:5000/services/${params.id}`)
+        },
+        {
+          path: '/checkout/:id',
+          element: <Checkout></Checkout>,
+          // loader: ({params})=>fetch(`http://localhost:5000/services/${params.id}`)
         }
       ]
     },

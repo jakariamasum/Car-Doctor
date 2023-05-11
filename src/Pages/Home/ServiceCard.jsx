@@ -1,7 +1,7 @@
 import {RiArrowRightLine} from 'react-icons/ri'
 import { Link } from 'react-router-dom';
 const ServiceCard = ({ service }) => {
-    const { title, img, price } = service;
+    const { title, img, price,_id } = service;
     return (
         <div>
             <div className="card w-full bg-base-100 shadow-xl">
@@ -12,7 +12,7 @@ const ServiceCard = ({ service }) => {
                     </h2>
                     <p className="text-[#FF3811] font-bold">Price: ${price}</p>
                     <div className="card-actions justify-end">
-                        <Link><div><RiArrowRightLine className='text-[#FF3811]'/> </div></Link>
+                        <Link to={`service/${_id}`}><div><RiArrowRightLine className='text-[#FF3811]'/> </div></Link>
                     </div>
                 </div>
             </div>
