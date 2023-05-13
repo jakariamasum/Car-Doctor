@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import Swal from 'sweetalert2';
 
 const Login = () => {
-    const {user,signIn}=useContext(AuthContext)
+    const {user,signIn,googleLogin}=useContext(AuthContext)
     console.log(user)
 
     const handleLogin = (event) => {
@@ -29,6 +29,11 @@ const Login = () => {
               form.reset()
         })
         .catch(error=>console.log(error.message))
+    }
+    const handleGoogle=()=>{
+        googleLogin()
+        .then(res=>console.log(res))
+        .then(error=>console.log(error.message))
     }
 
     return (
@@ -62,9 +67,9 @@ const Login = () => {
                         <div className='text-center'>
                             <p className='font-semibold my-7'>Or Sign In With</p>
                             <div className='flex gap-2 justify-center'>
-                                <FaFacebookSquare className='text-blue-500 ' />
-                                <FaLinkedinIn className='text-blue-500 ' />
-                                <FaGoogle className='text-[#0F9D58] ' />
+                                <FaFacebookSquare className='text-blue-500 cursor-pointer' />
+                                <FaLinkedinIn className='text-blue-500 cursor-pointer' />
+                                <FaGoogle className='text-[#0F9D58] cursor-pointer' onClick={handleGoogle}/>
                             </div>
                             <p className="text-center mt-2">Have an account? <Link to='/register'><span className='link text-[#FF3811]'>Sign In</span></Link> </p>
                         </div>

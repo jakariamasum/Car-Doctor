@@ -8,7 +8,7 @@ import { getAuth, updateProfile } from 'firebase/auth';
 const auth=getAuth();
 
 const Register = () => {
-    const {createUser}=useContext(AuthContext);
+    const {createUser,logOut}=useContext(AuthContext);
     const handleRegister=(event)=>{
         event.preventDefault(); 
         const form=event.target; 
@@ -30,6 +30,7 @@ const Register = () => {
             updateProfile(auth.currentUser, {
                 displayName: name
               }).then(() => {
+                logOut();
                   form.reset()
                 
             }).catch((error) => {
